@@ -1,0 +1,16 @@
+{
+  "cities": [
+    {
+      "id": 1,
+      "name": "Stockholm",
+      "countryId": "Sweden",
+      "date": "14.12.2021"
+    },
+    {
+      "id": 2,
+      "name": "Palaiokastritsa",
+      "countryId": "Greece",
+      "date": "21.08.2022"
+    }
+    ]
+}

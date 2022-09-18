@@ -1,0 +1,11 @@
+.App {
+  text-align: center;
+}
+
+table {
+  border: 2px solid forestgreen;
+}
+
+th {
+  border: 1px solid black;
+}

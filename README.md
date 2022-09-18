@@ -68,3 +68,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# **Setting up JSON local server**
+
+In the project directory run:
+### `npm install -g json-server` 
+
+
+To allow your windows to run the local JSON server, first run the command from your administrator Powershell:
+### `Set-ExecutionPolicy Bypass`
+
+After that get the server up from the terminal:
+
+### `json-server --watch db.json`
