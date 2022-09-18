@@ -1,5 +1,6 @@
 import "../styles/App.css"
 import React, { useState, useEffect } from "react";
+import Create from "./Create";
 
 function Table() {
     const [data, getData] = useState([])
@@ -39,6 +40,8 @@ function Table() {
                     </tr>
                 ))}
             </table>
+            <Create>
+            </Create>
         </div>
     )
 }
