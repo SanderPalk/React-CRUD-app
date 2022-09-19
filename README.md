@@ -80,4 +80,4 @@ To allow your windows to run the local JSON server, first run the command from y
 
 After that get the server up from the terminal:
 
-### `json-server --watch db.json`
+### `json-server --watch src/api/db.json --port 5000`

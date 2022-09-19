@@ -1,8 +1,21 @@
 import "./styles/App.css"
-import Table from "./components/Table";
+import City from "./components/Cities";
 
 function App() {
-    return Table()
+    return (
+        <>
+            <header>
+                <div className='header__content'>
+                    <div className='logo'>
+                        <strong>Visited city app</strong>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <City />
+            </main>
+        </>
+    )
 }
 
-export default App;
+export default App

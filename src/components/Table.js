@@ -1,47 +1,42 @@
-import "../styles/App.css"
-import React, { useState, useEffect } from "react";
-import Create from "./Create";
+import React from "react"
+import Form from "./Form"
 
-function Table() {
-    const [data, getData] = useState([])
-    const url = 'http://localhost:5000/cities';
+const Table = ({cities, postCity, updateCity, deleteCity}) => {
+    const showUpdateCity = id => {
+        const form = document.getElementsByClassName(`show-form-${id}`)
+        form[0].classList.toggle("hide-form")
+    }
 
-    useEffect( () => {
-        fetchData()
-    }, [])
-
-    const fetchData = () => {
-        fetch(url)
-            .then((res) =>
-                res.json())
-
-            .then((response) => {
-                console.log(response);
-                getData(response);
-            })
+    const Row = ({ city }) => {
+        return (
+            <>
+                <div className='row'>
+                    <div>{city.name}</div>
+                    <div>{city.country}</div>
+                    <div>{city.date}</div>
+                    <div className='buttons'>
+                        <button onClick={() => showUpdateCity(city.id)}>Update</button>
+                        <button onClick={() => deleteCity(city.id)}>Delete</button>
+                    </div>
+                </div>
+                <div className={`hide-form show-form-${city.id}`}>
+                    <Form userData={city} postUser={postCity} updateUser={updateCity} />
+                </div>
+            </>
+        )
     }
 
     return (
-        <div className="Table">
-            <h1>Visited city list</h1>
-            <table>
-                <tr>
-                    <th>Id</th>
-                    <th>City name</th>
-                    <th>Country</th>
-                    <th>Date visited</th>
-                </tr>
-                {data.map((item, i) => (
-                    <tr key={i}>
-                        <td>{item.id}</td>
-                        <td>{item.name}</td>
-                        <td>{item.country}</td>
-                        <td>{item.date}</td>
-                    </tr>
-                ))}
-            </table>
-            <Create>
-            </Create>
+        <div className='table'>
+            <div className='titles'>
+                <div>Name</div>
+                <div>Country</div>
+                <div>Date</div>
+                <div>Actions</div>
+            </div>
+            <div className='rows'>
+                {cities && cities.map(u => <Row city={u} key={u.id} />)}
+            </div>
         </div>
     )
 }
