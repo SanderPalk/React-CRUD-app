@@ -1,19 +1,13 @@
-import "./styles/App.css"
-import City from "./components/Cities";
+import React  from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './components/Home';
 
 function App() {
     return (
         <>
-            <header>
-                <div className='header__content'>
-                    <div className='logo'>
-                        <strong>Visited city app</strong>
-                    </div>
-                </div>
-            </header>
-            <main>
-                <City />
-            </main>
+            <div className={"App"}>
+                <Home/>
+            </div>
         </>
     )
 }
