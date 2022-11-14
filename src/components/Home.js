@@ -1,50 +1,40 @@
-import axios from "axios";
-import { useState, useEffect} from "react";
-import React from "react";
-import Example from "./addPicture";
+import React, { useState } from "react";
 
-const Home = () => {
-    const [ posts, setPosts] = useState([]);
-    const api = 'https://jsonplaceholder.typicode.com'
-    useEffect(() => {
-        const getPosts = async () => {
-            const {data: res} = await axios.get(api)
-            setPosts(res)
-        };
-        getPosts();
-    },[]);
+export const Picture = ({ title, url, id, onEdit, onDelete }) => {
+    const [isEdit, setIsEdit] = useState(false);
 
-    const handleDelete = async (post) =>{
-        await axios.delete(api + "/" + post.id + post);
-        setPosts(posts.filter((p) => p.id !== post.id))
-    }
+    const handleEdit = () => {
+        setIsEdit(!isEdit);
+    };
+
+    const handleDelete = () => {
+        onDelete(id);
+    };
+
+    const handleOnEditSubmit = (evt) => {
+        evt.preventDefault();
+        onEdit(id, evt.target.title.value, evt.target.url.value);
+        setIsEdit(!isEdit);
+    };
 
     return (
-        <>
-            <div className={"container"}>
-                <table className={"table"}>
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Picture</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {posts.map(post =>
-                        <tr key={post.id}>
-                            <td>{post.id}</td>
-                            <td>{post.title}</td>
-                            <td>{post.url}</td>
-                            <td><Example post={post} posts={posts} setPosts={setPosts} className="btn-info btn-sm"></Example></td>
-                            <td><button className={"remove btn btn-danger btn-sm"} onClick={() => handleDelete(post)}>Remove</button></td>
-                        </tr>
-                    )}
-                    </tbody>
-                </table>
-                <Example posts={posts} setPosts={setPosts}/>
-            </div>
-        </>
-    )
-}
-export default Home;
+        <div>
+            {isEdit ? (
+                <form onSubmit={handleOnEditSubmit}>
+                    <input placeholder="Title" name="title" defaultValue={title} />
+                    <input placeholder="Url" name="url" defaultValue={url} />
+                    <button onSubmit={handleOnEditSubmit}>Save</button>
+                </form>
+            ) : (
+                <div className="photo">
+                    <span className="title">{title}</span>
+                    <img src={url} width={"10%"} height={"10%"}/>
+                    <div>
+                        <button onClick={handleEdit}>Edit</button>
+                        <button onClick={handleDelete}>Delete</button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
