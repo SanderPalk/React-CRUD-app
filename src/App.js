@@ -42,6 +42,24 @@ export default function App() {
             .catch((error) => console.log(error));
     };
 
+    const onDelete = async (id) => {
+        await fetch(api + {id}, {
+            method: "DELETE"
+        })
+            .then((response) => {
+                if (response.status !== 200) {
+                    return;
+                } else {
+                    setPhotos(
+                        photos.filter((photo) => {
+                            return photo.id !== id;
+                        })
+                    );
+                }
+            })
+            .catch((error) => console.log(error));
+    };
+
     return (
         <div className="App">
             <h1>Photos</h1>
@@ -53,6 +71,7 @@ export default function App() {
                         key={photo.id}
                         title={photo.title}
                         url={photo.url}
+                        onDelete={onDelete}
                     />
                 ))}
             </div>
