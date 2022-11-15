@@ -1,13 +1,28 @@
 import React, { useState } from "react";
 
-export const Picture = ({ title, url }) => {
+export const Picture = ({ title, url, id, onEdit, onDelete }) => {
+    const [isEdit, setIsEdit] = useState(false);
+
+    const handleOnEditSubmit = (evt) => {
+        evt.preventDefault();
+        onEdit(id, evt.target.title.value, evt.target.url.value);
+        setIsEdit(!isEdit);
+    };
 
     return (
         <div>
-            <div className="photo">
-                <span className="title">{title}</span>
-                <img src={url} width={"10%"} height={"10%"}/>
-            </div>
+            {isEdit ? (
+                <form onSubmit={handleOnEditSubmit}>
+                    <input placeholder="Title" name="title" defaultValue={title} />
+                    <input placeholder="Url" name="url" defaultValue={url} />
+                    <button onSubmit={handleOnEditSubmit}>Save</button>
+                </form>
+            ) : (
+                <div className="photo">
+                    <span className="title">{title}</span>
+                    <img src={url} width={"10%"} height={"10%"}/>
+                </div>
+            )}
         </div>
     );
 };
