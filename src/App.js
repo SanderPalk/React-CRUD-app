@@ -42,6 +42,40 @@ export default function App() {
             .catch((error) => console.log(error));
     };
 
+    const onEdit = async (id, title, url) => {
+        await fetch(api + {id}, {
+            method: "PUT",
+            body: JSON.stringify({
+                title: title,
+                url: url,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then((response) => {
+                if (response.status !== 200) {
+                    return;
+                } else {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                // setUsers((users) => [...users, data]);
+                const updatedPhotos = photos.map((photo) => {
+                    if (photo.id === id) {
+                        photo.title = title;
+                        photo.url = url;
+                    }
+
+                    return photo;
+                });
+
+                setPhotos((photos) => updatedPhotos);
+            })
+            .catch((error) => console.log(error));
+    };
+
     const onDelete = async (id) => {
         await fetch(api + {id}, {
             method: "DELETE"
@@ -71,6 +105,7 @@ export default function App() {
                         key={photo.id}
                         title={photo.title}
                         url={photo.url}
+                        onEdit={onEdit}
                         onDelete={onDelete}
                     />
                 ))}

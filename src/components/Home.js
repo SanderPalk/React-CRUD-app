@@ -9,6 +9,10 @@ export const Picture = ({ title, url, id, onEdit, onDelete }) => {
         setIsEdit(!isEdit);
     };
 
+    const handleEdit = () => {
+        setIsEdit(!isEdit);
+    };
+
     const handleDelete = () => {
         onDelete(id);
     };
@@ -25,6 +29,7 @@ export const Picture = ({ title, url, id, onEdit, onDelete }) => {
                 <div className="photo">
                     <span className="title">{title}</span>
                     <img src={url} width={"10%"} height={"10%"}/>
+                    <button onClick={handleEdit}>Edit</button>
                     <button onClick={handleDelete}>Delete</button>
                 </div>
             )}
